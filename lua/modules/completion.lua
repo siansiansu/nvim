@@ -6,7 +6,10 @@ local luasnip = require 'luasnip'
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
-require("cmp").setup {
+cmp.setup {
+  completion = {
+    autocomplete = { cmp.TriggerEvent.InsertEnter, cmp.TriggerEvent.TextChanged },
+  },
   documentation = {
     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
   },
@@ -71,7 +74,7 @@ require("cmp").setup {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = "treesitter" },
-
+    { name = 'buffer' },
   },
 }
 
