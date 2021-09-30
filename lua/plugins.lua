@@ -58,8 +58,6 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-nvim-lsp'
   use 'saadparwaiz1/cmp_luasnip'
   use 'L3MON4D3/LuaSnip'
-  use {
-     "ray-x/lsp_signature.nvim",
-     after = "nvim-lspconfig",
-  }
+  use 'ray-x/lsp_signature.nvim'
+  use 'onsails/lspkind-nvim'
 end)

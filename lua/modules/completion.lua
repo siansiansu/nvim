@@ -6,7 +6,10 @@ local luasnip = require 'luasnip'
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
-cmp.setup {
+require("cmp").setup {
+  documentation = {
+    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+  },
   snippet = {
     expand = function(args)
       require('luasnip').lsp_expand(args.body)
@@ -43,23 +46,32 @@ cmp.setup {
     end,
   },
     formatting = {
-        format = function(entry, vim_item)
-            -- fancy icons and a name of kind
-            vim_item.kind = string.format("%s %s", require("plugins.lspkind").symbol_icons[vim_item.kind], vim_item.kind)
-            -- set a name for each source
-            vim_item.menu = ({
-                buffer   = "[BUF]",
-                nvim_lsp = "[LSP]",
-                luasnip  = "[LS]",
-                nvim_lua = "[Lua]"
-            })[entry.source.name]
-            return vim_item
-        end
+      format = function(entry, vim_item)
+        local lspkind = require('lspkind')
+        vim_item.kind = lspkind.presets.default[vim_item.kind]
+        vim_item.menu = ({
+          nvim_lsp = "(LSP)",
+          emoji = "(Emoji)",
+          path = "(Path)",
+          calc = "(Calc)",
+          cmp_tabnine = "(Tabnine)",
+          vsnip = "(Snippet)",
+          luasnip = "(Snippet)",
+          buffer = "(Buffer)",
+        })[entry.source.name]
+        vim_item.dup = ({
+          buffer = 1,
+          path = 1,
+          nvim_lsp = 0,
+        })[entry.source.name] or 0
+        return vim_item
+      end,
     },
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = "treesitter" },
+
   },
 }
-
 
