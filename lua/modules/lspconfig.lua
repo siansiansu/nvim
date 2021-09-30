@@ -38,6 +38,10 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     }
 )
 
+require'lspconfig'.zeta_note.setup{
+  cmd = {'zeta-note'}
+}
+
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = { 'pyright', 'gopls', 'dockerls', 'groovyls', 'java_language_server', 'jsonls', 'tflint', 'yamlls', 'ansiblels'}

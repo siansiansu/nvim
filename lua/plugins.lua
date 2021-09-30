@@ -18,7 +18,6 @@ return require('packer').startup(function(use)
     'hoob3rt/lualine.nvim',
     requires = {'kyazdani42/nvim-web-devicons', opt = true}
   }
-  use 'liuchengxu/vista.vim'
   use {
     'romgrk/barbar.nvim',
     requires = {'kyazdani42/nvim-web-devicons', opt = true}
@@ -63,15 +62,4 @@ return require('packer').startup(function(use)
      "ray-x/lsp_signature.nvim",
      after = "nvim-lspconfig",
   }
-  -- use 'glepnir/dashboard-nvim'
-  -- use 'fatih/vim-go'
-  -- use 'nvim-lua/completion-nvim'
-  -- use 'hashivim/vim-terraform'
-  -- use 'onsails/lspkind-nvim'
-  -- use 'glepnir/lspsaga.nvim'
-  -- use 'famiu/feline.nvim'
-  -- use {
-  --   'glepnir/galaxyline.nvim',
-  --   requires = {'kyazdani42/nvim-web-devicons'}
-  -- }
 end)
