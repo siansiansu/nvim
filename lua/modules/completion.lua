@@ -1,21 +1,36 @@
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
-
--- luasnip setup
-local luasnip = require 'luasnip'
-
--- nvim-cmp setup
+local luasnip = require('luasnip')
 local cmp = require 'cmp'
+local WIDE_HEIGHT = 40
+
 cmp.setup {
   completion = {
-    autocomplete = { cmp.TriggerEvent.InsertEnter, cmp.TriggerEvent.TextChanged },
+    autocomplete = {
+      cmp.TriggerEvent.InsertEnter, cmp.TriggerEvent.TextChanged
+    },
   },
+  completeopt = 'menu,menuone,noselect',
+  keyword_pattern = [[\%(-\?\d\+\%(\.\d\+\)\?\|\h\w*\%(-\w*\)*\)]],
+  keyword_length = 1,
+  get_trigger_characters = function(trigger_characters)
+    return trigger_characters
+  end,
+
   documentation = {
     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+    winhighlight = 'NormalFloat:NormalFloat,FloatBorder:NormalFloat',
+    maxwidth = math.floor((WIDE_HEIGHT * 2) * (vim.o.columns / (WIDE_HEIGHT * 2 * 16 / 9))),
+    maxheight = math.floor(WIDE_HEIGHT * (WIDE_HEIGHT / vim.o.lines)),
   },
+
   snippet = {
     expand = function(args)
       require('luasnip').lsp_expand(args.body)
+    end,
+  },
+  confirmation = {
+    default_behavior = cmp.ConfirmBehavior.Insert,
+    get_commit_characters = function(commit_characters)
+      return commit_characters
     end,
   },
   mapping = {
@@ -70,9 +85,15 @@ cmp.setup {
         return vim_item
       end,
     },
+
+    experimental = {
+      ghost_text = true,
+    },
+
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'path' },
     { name = "treesitter" },
     { name = 'buffer' },
   },

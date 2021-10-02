@@ -14,8 +14,6 @@ This setup is for [neovim >= v0.5.0](https://github.com/neovim/neovim/releases/t
 
 * [kyazdani42/nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua) - File explorer
 
-* [liuchengxu/vista.vim](https://github.com/liuchengxu/vista.vim) - LSP symbols and tags
-
 * [neovim/nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) - Nvim LSP client
 
 * [ray-x/lsp_signature.nvim](https://github.com/ray-x/lsp_signature.nvim) - LSP signature hint as you type
@@ -50,6 +48,8 @@ This setup is for [neovim >= v0.5.0](https://github.com/neovim/neovim/releases/t
 
 * [hrsh7th/cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp) - nvim-cmp source for neovim builtin LSP client
 
+* [hrsh7th/cmp-buffer](https://github.com/hrsh7th/cmp-buffer) - nvim-cmp source for buffer words
+
 * [saadparwaiz1/cmp_luasnip](https://github.com/saadparwaiz1/cmp_luasnip) - luasnip completion source for nvim-cmp
 
 ## Directory tree of Lua files
@@ -73,14 +73,16 @@ This setup is for [neovim >= v0.5.0](https://github.com/neovim/neovim/releases/t
 │   │   ├── gitsigns.lua
 │   │   ├── hop.lua
 │   │   ├── indent.lua
+│   │   ├── lsp_signature.lua
 │   │   ├── lspconfig.lua
-│   │   ├── lspkind.lua
+│   │   ├── lspsaga.lua
 │   │   ├── nvimtree.lua
 │   │   ├── statusline.lua
 │   │   ├── telescope.lua
 │   │   ├── terminal.lua
 │   │   ├── treesitter.lua
-│   │   └── truezen.lua
+│   │   ├── truezen.lua
+│   │   └── vista.lua
 │   ├── plugins.lua
 │   └── settings.lua
 └── plugin
