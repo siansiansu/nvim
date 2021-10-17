@@ -5,7 +5,7 @@ local g = vim.g                                    -- global variables
 local opt = vim.opt                                -- global/buffer/windows-scoped options
 
 g.mapleader = ','                                  -- change leader to a comma
--- g.indentLine_char = '|'                            -- set indentLine character
+g.indentLine_char = '|'                            -- set indentLine character
 
 opt.mouse = 'a'                                    -- enable mouse support
 opt.swapfile = false                               -- don't use swapfile

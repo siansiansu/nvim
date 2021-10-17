@@ -45,7 +45,7 @@ require'lspconfig'.zeta_note.setup{
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'pyright', 'gopls', 'dockerls', 'groovyls', 'java_language_server', 'jsonls', 'tflint', 'yamlls', 'ansiblels'}
+local servers = { 'pyright', 'dockerls', 'gopls', 'groovyls', 'java_language_server', 'jsonls', 'tflint', 'yamlls', 'ansiblels'}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,

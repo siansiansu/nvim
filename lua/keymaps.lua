@@ -24,3 +24,9 @@ map("t", '<ESC>', "<C-\\><C-n>", default)
 
 map("t", '<Leader>+', ':lua NTGlobal["window"]:change_height(2)<CR>', default)
 map("t", '<Leader>-', ':lua NTGlobal["window"]:change_height(-2)<CR>', default)
+
+-- barbarline
+map("n", '<Leader>bp', ':BufferPick<CR>', default)
+map("n", 'C-Left', ':BufferPrevious<CR>', default)
+map("n", 'C-Right', ':BufferNext<CR>', default)
+

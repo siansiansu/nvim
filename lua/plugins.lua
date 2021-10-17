@@ -35,7 +35,7 @@ return require('packer').startup(function(use)
     run = ':TSUpdate'
   }
   use 'tpope/vim-fugitive'
-  use 'lukas-reineke/indent-blankline.nvim'
+--   use 'lukas-reineke/indent-blankline.nvim'
   use {
     'nvim-telescope/telescope.nvim',
     requires = {
@@ -52,6 +52,7 @@ return require('packer').startup(function(use)
   use 'windwp/nvim-autopairs'
   use 'Pocco81/TrueZen.nvim'
   use 'andymass/vim-matchup'
+  use 'hashivim/vim-terraform'
   use 'sbdchd/neoformat'
   use 'neovim/nvim-lspconfig'
   use 'hrsh7th/nvim-cmp'
