@@ -62,5 +62,8 @@ return require('packer').startup(function(use)
   use 'L3MON4D3/LuaSnip'
   use 'ray-x/lsp_signature.nvim'
   use 'onsails/lspkind-nvim'
+  -- use 'akinsho/toggleterm.nvim'
+  -- use 'fatih/vim-go'
+  use 'ray-x/go.nvim'
   -- use 'glepnir/lspsaga.nvim'
 end)

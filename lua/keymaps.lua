@@ -15,8 +15,8 @@ map('n', '<Leader>pi', ":PackerInstall<CR>", default)
 map('n', '<Leader>pc', ":PackerCompile<CR>", default)
 map('n', '<Leader>ps', ":PackerSync<CR>", default)
 
-map('n', '<Leader>w', ":HopWord<CR>", default)
-map('n', '<Leader>l', ":HopLine<CR>", default)
+map('n', '<space>w', ":HopWord<CR>", default)
+map('n', '<space>ww', ":HopLine<CR>", default)
 
 map('n', '<Leader>z', ":TZFocus<CR>", default)
 
@@ -27,6 +27,6 @@ map("t", '<Leader>-', ':lua NTGlobal["window"]:change_height(-2)<CR>', default)
 
 -- barbarline
 map("n", '<Leader>bp', ':BufferPick<CR>', default)
-map("n", 'C-Left', ':BufferPrevious<CR>', default)
-map("n", 'C-Right', ':BufferNext<CR>', default)
+map("n", 'g<S>t', ':BufferPrevious<CR>', default)
+map("n", 'gt', ':BufferNext<CR>', default)
 
