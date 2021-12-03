@@ -50,10 +50,10 @@ return require('packer').startup(function(use)
     as = 'hop',
   }
   use 'windwp/nvim-autopairs'
-  use 'Pocco81/TrueZen.nvim'
-  use 'andymass/vim-matchup'
+  -- use 'Pocco81/TrueZen.nvim'
+  -- use 'andymass/vim-matchup'
   use 'hashivim/vim-terraform'
-  use 'sbdchd/neoformat'
+  -- use 'sbdchd/neoformat'
   use 'neovim/nvim-lspconfig'
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
@@ -62,8 +62,10 @@ return require('packer').startup(function(use)
   use 'L3MON4D3/LuaSnip'
   use 'ray-x/lsp_signature.nvim'
   use 'onsails/lspkind-nvim'
+  use 'ray-x/go.nvim'
+  -- use 'tpope/vim-dadbod'
+  -- use 'kristijanhusak/vim-dadbod-ui'
   -- use 'akinsho/toggleterm.nvim'
   -- use 'fatih/vim-go'
-  use 'ray-x/go.nvim'
   -- use 'glepnir/lspsaga.nvim'
 end)
