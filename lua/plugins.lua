@@ -30,10 +30,10 @@ return require('packer').startup(function(use)
     'lewis6991/gitsigns.nvim',
     requires = {'nvim-lua/plenary.nvim', opt = true},
   }
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate'
-  }
+  -- use {
+  --   'nvim-treesitter/nvim-treesitter',
+  --   run = ':TSUpdate'
+  -- }
   use 'tpope/vim-fugitive'
 --   use 'lukas-reineke/indent-blankline.nvim'
   use {
@@ -63,6 +63,7 @@ return require('packer').startup(function(use)
   use 'ray-x/lsp_signature.nvim'
   use 'onsails/lspkind-nvim'
   use 'ray-x/go.nvim'
+  use 'kshenoy/vim-signature'
   -- use 'tpope/vim-dadbod'
   -- use 'kristijanhusak/vim-dadbod-ui'
   -- use 'akinsho/toggleterm.nvim'

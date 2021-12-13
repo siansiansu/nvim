@@ -4,7 +4,7 @@ require('plugins')
 
 require('modules.statusline')
 require('modules.telescope')
-require('modules.treesitter')
+-- require('modules.treesitter')
 require('modules.nvimtree')
 require('modules.autopairs')
 require('modules.hop')
