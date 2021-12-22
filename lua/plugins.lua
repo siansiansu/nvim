@@ -30,10 +30,10 @@ return require('packer').startup(function(use)
     'lewis6991/gitsigns.nvim',
     requires = {'nvim-lua/plenary.nvim', opt = true},
   }
-  -- use {
-  --   'nvim-treesitter/nvim-treesitter',
-  --   run = ':TSUpdate'
-  -- }
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate'
+  }
   use 'tpope/vim-fugitive'
 --   use 'lukas-reineke/indent-blankline.nvim'
   use {
@@ -53,7 +53,7 @@ return require('packer').startup(function(use)
   -- use 'Pocco81/TrueZen.nvim'
   -- use 'andymass/vim-matchup'
   use 'hashivim/vim-terraform'
-  -- use 'sbdchd/neoformat'
+  use 'sbdchd/neoformat'
   use 'neovim/nvim-lspconfig'
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
@@ -62,8 +62,9 @@ return require('packer').startup(function(use)
   use 'L3MON4D3/LuaSnip'
   use 'ray-x/lsp_signature.nvim'
   use 'onsails/lspkind-nvim'
-  use 'ray-x/go.nvim'
+  -- use 'ray-x/go.nvim'
   use 'kshenoy/vim-signature'
+  use 'folke/which-key.nvim'
   -- use 'tpope/vim-dadbod'
   -- use 'kristijanhusak/vim-dadbod-ui'
   -- use 'akinsho/toggleterm.nvim'

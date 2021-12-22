@@ -4,7 +4,7 @@ local fn = vim.fn                                  -- call Vim functions
 local g = vim.g                                    -- global variables
 local opt = vim.opt                                -- global/buffer/windows-scoped options
 
-g.mapleader = ','                                  -- change leader to a comma
+g.mapleader = ' '                                  -- change leader to a comma
 g.indentLine_char = '|'                            -- set indentLine character
 g.terraform_fmt_on_save = '1'
 

@@ -11,7 +11,7 @@ require('modules.hop')
 require('modules.completion')
 require('modules.lspconfig')
 require('modules.gitsigns')
-require('modules.go')
+-- require('modules.go')
 
 -- require('modules.truezen')
 -- require('modules.terminal')

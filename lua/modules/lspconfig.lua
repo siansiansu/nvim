@@ -39,13 +39,21 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     }
 )
 
-require'lspconfig'.zeta_note.setup{
-  cmd = {'zeta-note'}
+nvim_lsp["gopls"].setup {
+    cmd = {"gopls", "serve"},
+    settings = {
+      gopls = {
+        analyses = {
+          unusedparams = true,
+        },
+        staticcheck = true,
+      },
+    },
 }
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'pyright', 'dockerls', 'gopls', 'groovyls', 'java_language_server', 'jsonls', 'tflint', 'yamlls', 'ansiblels'}
+local servers = { 'gopls', 'pyright', 'dockerls', 'groovyls', 'jsonls', 'tflint', 'yamlls', 'ansiblels'}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
