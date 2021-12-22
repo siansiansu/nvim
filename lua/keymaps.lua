@@ -68,3 +68,5 @@ map('n', '<Space>bl', ':BufferOrderByLanguage<CR>', default)
 -- Formatting
 map('n', '<Leader>ft', ':Neoformat<CR>', default)
 
+map('n', '<Leader>k', ':WhichKey<CR>', default)
+

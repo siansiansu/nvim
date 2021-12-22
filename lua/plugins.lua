@@ -30,10 +30,10 @@ return require('packer').startup(function(use)
     'lewis6991/gitsigns.nvim',
     requires = {'nvim-lua/plenary.nvim', opt = true},
   }
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate'
-  }
+  -- use {
+  --   'nvim-treesitter/nvim-treesitter',
+  --   run = ':TSUpdate'
+  -- }
   use 'tpope/vim-fugitive'
 --   use 'lukas-reineke/indent-blankline.nvim'
   use {
