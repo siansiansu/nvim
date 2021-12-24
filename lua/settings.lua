@@ -95,6 +95,7 @@ opt.conceallevel   = 2
 opt.concealcursor  = "niv"
 opt.cursorline     =true
 opt.cursorcolumn     =true
+opt.statusline = "%F"
 
 cmd('colorscheme one-nvim')
 cmd[[au BufEnter * set fo-=c fo-=r fo-=o]]

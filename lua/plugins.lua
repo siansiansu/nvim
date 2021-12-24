@@ -30,12 +30,11 @@ return require('packer').startup(function(use)
     'lewis6991/gitsigns.nvim',
     requires = {'nvim-lua/plenary.nvim', opt = true},
   }
-  -- use {
-  --   'nvim-treesitter/nvim-treesitter',
-  --   run = ':TSUpdate'
-  -- }
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate'
+  }
   use 'tpope/vim-fugitive'
---   use 'lukas-reineke/indent-blankline.nvim'
   use {
     'nvim-telescope/telescope.nvim',
     requires = {
@@ -50,8 +49,6 @@ return require('packer').startup(function(use)
     as = 'hop',
   }
   use 'windwp/nvim-autopairs'
-  -- use 'Pocco81/TrueZen.nvim'
-  -- use 'andymass/vim-matchup'
   use 'hashivim/vim-terraform'
   use 'sbdchd/neoformat'
   use 'neovim/nvim-lspconfig'
@@ -62,12 +59,18 @@ return require('packer').startup(function(use)
   use 'L3MON4D3/LuaSnip'
   use 'ray-x/lsp_signature.nvim'
   use 'onsails/lspkind-nvim'
-  -- use 'ray-x/go.nvim'
+  use 'ray-x/go.nvim'
   use 'kshenoy/vim-signature'
   use 'folke/which-key.nvim'
+  use 'ellisonleao/glow.nvim'
+  use 'github/copilot.vim'
+  -- use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
   -- use 'tpope/vim-dadbod'
   -- use 'kristijanhusak/vim-dadbod-ui'
   -- use 'akinsho/toggleterm.nvim'
   -- use 'fatih/vim-go'
   -- use 'glepnir/lspsaga.nvim'
+  -- use 'Pocco81/TrueZen.nvim'
+  -- use 'andymass/vim-matchup'
+--   use 'lukas-reineke/indent-blankline.nvim'
 end)
