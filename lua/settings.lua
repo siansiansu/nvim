@@ -7,6 +7,7 @@ local opt = vim.opt                                -- global/buffer/windows-scop
 g.mapleader = ' '                                  -- change leader to a comma
 g.indentLine_char = '|'                            -- set indentLine character
 g.terraform_fmt_on_save = '1'
+g.vim_json_conceal='0'
 
 opt.mouse = 'a'                                    -- enable mouse support
 opt.swapfile = false                               -- don't use swapfile
