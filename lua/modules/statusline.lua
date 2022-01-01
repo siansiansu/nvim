@@ -36,7 +36,7 @@ require('lualine').setup {
     lualine_a = {
       { 'mode', separator = { left = '' }, right_padding = 2},
     },
-    lualine_b = { { 'filename', file_status = true, path = 1 }, 'branch', 'diff' },
+    lualine_b = { { 'filename', file_status = true, path = 1 }, 'branch'},
     lualine_c = {{ -- fileformat
       'diagnostics',
       -- Table of diagnostic sources, available sources are:

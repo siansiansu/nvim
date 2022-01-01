@@ -74,3 +74,6 @@ map('n', '<Leader>k', ':WhichKey<CR>', default)
 -- Markdown Preview
 map('n', '<Leader>mk', ':Glow<CR>', default)
 
+
+map('n', '<Leader>t', ':terminal<CR>', default)
+
