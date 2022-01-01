@@ -96,9 +96,9 @@ opt.conceallevel   = 2
 opt.concealcursor  = "niv"
 opt.cursorline     =true
 opt.cursorcolumn     =true
-opt.statusline = "%F"
+-- opt.statusline = "%F"
 
-cmd('colorscheme one-nvim')
+cmd('colorscheme nord') -- one-nvim
 cmd[[au BufEnter * set fo-=c fo-=r fo-=o]]
 cmd[[autocmd FileType text,markdown,xml,html,xhtml,javascript setlocal cc=0]]
 cmd[[autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2]]
@@ -108,6 +108,7 @@ cmd[[autocmd Filetype html setlocal tabstop=2 softtabstop=2 shiftwidth=2]]
 cmd[[autocmd Filetype javascript setlocal tabstop=4 sts=4 sw=4]]
 cmd[[autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab]]
 cmd[[autocmd Filetype sh setlocal tabstop=2 softtabstop=2 shiftwidth=2]]
+
 -- cmd[[
 --   autocmd FileType xml,html,xhtml,css,scss,javascript,lua,yaml,yml setlocal shiftwidth=2 tabstop=2
 -- ]]

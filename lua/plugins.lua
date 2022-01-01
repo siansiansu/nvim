@@ -13,7 +13,7 @@ require('packer').init({display = {auto_clean = false}})
 
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
-  use 'Th3Whit3Wolf/one-nvim'
+  -- use 'Th3Whit3Wolf/one-nvim'
   use {
     'hoob3rt/lualine.nvim',
     requires = {'kyazdani42/nvim-web-devicons', opt = true}
@@ -64,6 +64,8 @@ return require('packer').startup(function(use)
   use 'folke/which-key.nvim'
   use 'ellisonleao/glow.nvim'
   use 'github/copilot.vim'
+  use 'shaunsingh/nord.nvim'
+  -- use 'nvim-lua/lsp-status.nvim'
   -- use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
   -- use 'tpope/vim-dadbod'
   -- use 'kristijanhusak/vim-dadbod-ui'
