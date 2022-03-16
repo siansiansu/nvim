@@ -9,6 +9,15 @@ g.indentLine_char = '|'                            -- set indentLine character
 g.terraform_fmt_on_save = '1'
 g.vim_json_conceal='0'
 
+-- vista
+g.vista_sidebar_width = '40'
+g.vista_fzf_preview = 'right:50%'
+g.vista_default_executive = 'nvim_lsp'
+
+-- lsp
+vim.o.updatetime = 250
+vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+
 opt.mouse = 'a'                                    -- enable mouse support
 opt.swapfile = false                               -- don't use swapfile
 opt.number = true                                  -- show line number
@@ -116,9 +125,9 @@ cmd[[autocmd FileType markdown let g:indentLine_enabled=1]]
 cmd[[au BufWritePre * :%s/\s\+$//e]]
 
 -- highlight on yank
-exec([[
-  augroup YankHighlight
-    autocmd!
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=700}
-  augroup end
-]], false)
+-- exec([[
+--   augroup YankHighlight
+--     autocmd!
+--     autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=700}
+--   augroup end
+-- ]], false)

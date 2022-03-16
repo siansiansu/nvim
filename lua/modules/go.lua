@@ -31,3 +31,6 @@ require('go').setup({
   dap_debug_vt = true, -- set to true to enable dap virtual text
   build_tags = "tag1,tag2" -- set default build tags
 })
+
+-- Run gofmt + goimport on save
+vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)

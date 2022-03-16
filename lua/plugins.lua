@@ -62,9 +62,12 @@ return require('packer').startup(function(use)
   use 'ray-x/go.nvim'
   use 'kshenoy/vim-signature'
   use 'folke/which-key.nvim'
-  use 'ellisonleao/glow.nvim'
+  -- use 'ellisonleao/glow.nvim'
   use 'github/copilot.vim'
   use 'shaunsingh/nord.nvim'
+  use 'liuchengxu/vista.vim'
+  use 'preservim/nerdcommenter'
+  -- use 'preservim/tagbar'
   -- use 'nvim-lua/lsp-status.nvim'
   -- use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
   -- use 'tpope/vim-dadbod'
