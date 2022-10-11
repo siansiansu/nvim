@@ -3,6 +3,7 @@ require('keymaps')
 require('plugins')
 
 require('modules.statusline')
+require('modules.indent')
 require('modules.telescope')
 require('modules.nvimtree')
 require('modules.autopairs')

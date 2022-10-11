@@ -13,7 +13,9 @@ require('packer').init({display = {auto_clean = false}})
 
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
-  -- use 'Th3Whit3Wolf/one-nvim'
+  use 'Th3Whit3Wolf/one-nvim'
+  use 'nvim-lua/plenary.nvim'
+  use 'kyazdani42/nvim-web-devicons'
   use {
     'hoob3rt/lualine.nvim',
     requires = {'kyazdani42/nvim-web-devicons', opt = true}
@@ -61,21 +63,9 @@ return require('packer').startup(function(use)
   use 'onsails/lspkind-nvim'
   use 'ray-x/go.nvim'
   use 'kshenoy/vim-signature'
-  use 'folke/which-key.nvim'
-  -- use 'ellisonleao/glow.nvim'
   use 'github/copilot.vim'
   use 'shaunsingh/nord.nvim'
   use 'liuchengxu/vista.vim'
   use 'preservim/nerdcommenter'
-  -- use 'preservim/tagbar'
-  -- use 'nvim-lua/lsp-status.nvim'
-  -- use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
-  -- use 'tpope/vim-dadbod'
-  -- use 'kristijanhusak/vim-dadbod-ui'
-  -- use 'akinsho/toggleterm.nvim'
-  -- use 'fatih/vim-go'
-  -- use 'glepnir/lspsaga.nvim'
-  -- use 'Pocco81/TrueZen.nvim'
-  -- use 'andymass/vim-matchup'
---   use 'lukas-reineke/indent-blankline.nvim'
+  use "lukas-reineke/indent-blankline.nvim"
 end)

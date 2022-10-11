@@ -68,15 +68,6 @@ map('n', '<Space>bl', ':BufferOrderByLanguage<CR>', default)
 -- Formatting
 map('n', '<Leader>ft', ':Neoformat<CR>', default)
 
--- WhichKey
-map('n', '<Leader>k', ':WhichKey<CR>', default)
-
--- Markdown Preview
-map('n', '<Leader>mk', ':Glow<CR>', default)
-
--- terminal
-map('n', '<Leader>t', ':terminal<CR>', default)
-
 -- Vista
 map('n', '<Leader>v', ':Vista<CR>', default)
 map('n', '<Leader>vc', ':Vista!!<CR>', default)
