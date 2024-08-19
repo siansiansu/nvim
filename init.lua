@@ -1,6 +1,6 @@
+require('plugins')
 require('settings')
 require('keymaps')
-require('plugins')
 
 require('modules.statusline')
 require('modules.indent')
@@ -13,3 +13,4 @@ require('modules.lspconfig')
 require('modules.gitsigns')
 require('modules.go')
 require('modules.comment')
+require('modules.mason')

@@ -50,6 +50,7 @@ return require('packer').startup(function(use)
     'phaazon/hop.nvim',
     as = 'hop',
   }
+  use { "williamboman/mason.nvim" }
   use 'windwp/nvim-autopairs'
   use 'hashivim/vim-terraform'
   use 'sbdchd/neoformat'

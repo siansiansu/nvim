@@ -15,8 +15,8 @@ g.vista_fzf_preview = 'right:50%'
 g.vista_default_executive = 'nvim_lsp'
 
 -- lsp
-vim.o.updatetime = 250
-vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+-- vim.o.updatetime = 250
+-- vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 
 opt.mouse = 'a'                                    -- enable mouse support
 opt.swapfile = false                               -- don't use swapfile
