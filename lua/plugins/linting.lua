@@ -10,7 +10,6 @@ return {
       })
       require("lint").linters_by_ft = {
         python = { "black" },
-        markdown = { 'vale', }
       }
     end
   }
