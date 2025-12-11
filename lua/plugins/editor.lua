@@ -1,63 +1,56 @@
 return {
+  -- File explorer
   {
     "nvim-neo-tree/neo-tree.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "MunifTanjim/nui.nvim",
-      {
-        's1n7ax/nvim-window-picker',
-        version = '*',
-        config = function()
-          require 'window-picker'.setup({
-            autoselect_one = true,
-            include_current_win = false,
-            filter_rules = {
-              bo = {
-                filetype = { 'neo-tree', "neo-tree-popup", "notify" },
-                buftype = { 'terminal', "quickfix" },
-              },
-            },
-          })
-        end,
-      },
+    dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
+    keys = {
+      { "<Leader>e", "<cmd>Neotree toggle<CR>", desc = "Toggle file explorer" },
     },
-    config = function()
-      vim.api.nvim_set_keymap('n', '<Leader>e', ':Neotree toggle<CR>', { noremap = true, silent = true })
-    end,
   },
+
+  -- Fuzzy finder
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    keys = {
+      { "<Leader>ff", "<cmd>Telescope find_files<CR>", desc = "Find files" },
+      { "<Leader>fg", "<cmd>Telescope live_grep<CR>", desc = "Live grep" },
+      { "<Leader>fb", "<cmd>Telescope buffers<CR>", desc = "Buffers" },
+      { "<Leader>fh", "<cmd>Telescope help_tags<CR>", desc = "Help tags" },
+    },
+  },
+
+  -- Git signs
   {
     "lewis6991/gitsigns.nvim",
-    config = function()
-      require('gitsigns').setup({
-        signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
-        numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
-        linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
-        word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
-        current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
-      })
-
-      -- Gitsigns Keymaps
-      vim.api.nvim_set_keymap('n', '<Leader>gs', ':Gitsigns stage_hunk<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<Leader>gr', ':Gitsigns reset_hunk<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<Leader>gb', ':Gitsigns blame_line<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<Leader>gd', ':Gitsigns diffthis<CR>', { noremap = true, silent = true })
-    end,
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      current_line_blame = true,
+    },
+    keys = {
+      { "<Leader>gs", "<cmd>Gitsigns stage_hunk<CR>", desc = "Stage hunk" },
+      { "<Leader>gr", "<cmd>Gitsigns reset_hunk<CR>", desc = "Reset hunk" },
+      { "<Leader>gb", "<cmd>Gitsigns blame_line<CR>", desc = "Blame line" },
+      { "<Leader>gd", "<cmd>Gitsigns diffthis<CR>", desc = "Diff this" },
+    },
   },
+
+  -- Diagnostics list
   {
     "folke/trouble.nvim",
-    config = function()
-      require("trouble").setup({
-        auto_open = false,
-        auto_close = false,
-        use_diagnostic_signs = true,
-      })
-
-      vim.api.nvim_set_keymap('n', '<Leader>tt', ':TroubleToggle<CR>', { noremap = true, silent = true })
-    end,
+    cmd = "Trouble",
+    keys = {
+      { "<Leader>tt", "<cmd>Trouble diagnostics toggle<CR>", desc = "Toggle diagnostics" },
+    },
   },
+
+  -- Which key
   {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      { "<leader>?", function() require("which-key").show({ global = false }) end, desc = "Buffer Keymaps" },
+    },
   },
 }
