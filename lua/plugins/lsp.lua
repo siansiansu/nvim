@@ -21,37 +21,7 @@ return {
           end
         end
       end)
-    end,
-    keys = {
-      { "<leader>m", "<cmd>Mason<CR>", desc = "Open Mason" },
-    },
-  },
-
-  -- LSP config
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = { "williamboman/mason.nvim", "saghen/blink.cmp" },
-    config = function()
-      -- Custom keymaps on LspAttach
-      -- Nvim 0.11 defaults: K(hover), [d/]d(diag jump), grn(rename),
-      -- gra(code_action), grr(references), gri(implementation), gO(symbols)
-      vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("UserLspKeymaps", { clear = true }),
-        callback = function(args)
-          local opts = { buffer = args.buf, silent = true }
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-          vim.keymap.set("n", "<Leader>d", vim.diagnostic.open_float, opts)
-        end,
-      })
-
-      -- Configure servers with blink.cmp capabilities
-      local capabilities = require("blink.cmp").get_lsp_capabilities()
-      local servers = { "lua_ls", "pyright", "ts_ls" }
-      for _, server in ipairs(servers) do
-        vim.lsp.config(server, { capabilities = capabilities })
-      end
-      vim.lsp.enable(servers)
+      vim.keymap.set("n", "<leader>m", "<cmd>Mason<CR>", { desc = "Open Mason" })
     end,
   },
 

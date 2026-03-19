@@ -74,3 +74,22 @@ require("lazy").setup({
   install = { colorscheme = { "onedark", "habamax" } },
   checker = { enabled = false },
 })
+
+-- LSP keymaps
+-- Nvim 0.11 defaults: K(hover), [d/]d(diag jump), grn(rename),
+-- gra(code_action), grr(references), gri(implementation), gO(symbols)
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("UserLspKeymaps", { clear = true }),
+  callback = function(args)
+    local opts = { buffer = args.buf, silent = true }
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+    vim.keymap.set("n", "<Leader>d", vim.diagnostic.open_float, opts)
+  end,
+})
+
+-- LSP capabilities (blink.cmp) and enable servers
+vim.lsp.config("*", {
+  capabilities = require("blink.cmp").get_lsp_capabilities(),
+})
+vim.lsp.enable({ "lua_ls", "pyright", "ts_ls" })

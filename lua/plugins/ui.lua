@@ -1,7 +1,7 @@
 return {
   -- Icons (must load first)
   {
-    "echasnovski/mini.icons",
+    "nvim-mini/mini.icons",
     lazy = false,
     priority = 1001,
     config = function()

@@ -61,7 +61,7 @@ return {
 
   -- Auto pairs
   {
-    "echasnovski/mini.pairs",
+    "nvim-mini/mini.pairs",
     event = "VeryLazy",
     opts = {},
   },
