@@ -19,24 +19,13 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "                                 -- Space as leader key
 vim.g.maplocalleader = "\\"                           -- Backslash as local leader
 
--- Setup lazy.nvim
-require("lazy").setup({
-  spec = {
-    -- Import your plugins
-    { import = "plugins" },
-  },
-  defaults = {
-    version = "*",
-  },
-  install = { colorscheme = { "habamax" } },
-  checker = { enabled = false },
-})
-
 -- General Settings
 local opt = vim.opt
 
 -- Editor behavior
 opt.number = true                                     -- Show line number
+opt.signcolumn = 'yes'                                -- Always show sign column
+opt.undofile = true                                   -- Persistent undo across sessions
 opt.swapfile = false                                  -- Don't use swapfile
 opt.writebackup = false                               -- Don't write backup files
 opt.updatetime = 100                                  -- Faster CursorHold events (LSP)
@@ -65,9 +54,6 @@ opt.showmode = false                                  -- Don't show mode (lualin
 opt.list = true                                       -- Show invisible characters
 opt.listchars = 'tab:» ,trail:·,extends:→,precedes:←'
 
--- Completion
-opt.completeopt = 'menu,menuone,noinsert'             -- Completion options (for nvim-cmp)
-
 -- Folding (treesitter-based)
 opt.foldmethod = 'expr'
 opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
@@ -76,3 +62,15 @@ opt.foldlevelstart = 99                               -- Start with all folds op
 -- Wildmenu
 opt.wildignorecase = true
 opt.wildignore = '.git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**'
+
+-- Setup lazy.nvim
+require("lazy").setup({
+  spec = {
+    { import = "plugins" },
+  },
+  defaults = {
+    version = "*",
+  },
+  install = { colorscheme = { "onedark", "habamax" } },
+  checker = { enabled = false },
+})

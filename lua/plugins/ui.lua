@@ -12,7 +12,7 @@ return {
 
   -- Colorscheme
   {
-    "navarasu/onedark.nvim",
+    "olimorris/onedarkpro.nvim",
     lazy = false,
     priority = 1000,
     config = function()
@@ -24,6 +24,6 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     lazy = false,
-    opts = { options = { theme = "onedark" } },
+    opts = {},
   },
 }

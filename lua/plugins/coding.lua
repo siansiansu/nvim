@@ -2,11 +2,17 @@ return {
   -- Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
+    version = false,
     build = ":TSUpdate",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "lua", "python", "javascript", "typescript", "html", "css", "json" },
+        ensure_installed = {
+          "bash", "css", "html", "javascript", "json", "lua",
+          "markdown", "markdown_inline", "python", "typescript",
+          "vim", "vimdoc", "yaml",
+        },
         highlight = { enable = true },
         indent = { enable = true },
         textobjects = {
@@ -33,28 +39,24 @@ return {
 
   -- Completion
   {
-    "hrsh7th/nvim-cmp",
+    "saghen/blink.cmp",
+    version = "1.*",
     event = "InsertEnter",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-path",
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      keymap = {
+        preset = "default",
+        ["<CR>"] = { "accept", "fallback" },
+      },
+      completion = {
+        documentation = { auto_show = true, auto_show_delay_ms = 500 },
+      },
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+      },
     },
-    config = function()
-      local cmp = require("cmp")
-      cmp.setup({
-        mapping = {
-          ["<C-n>"] = cmp.mapping.select_next_item(),
-          ["<C-p>"] = cmp.mapping.select_prev_item(),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
-        },
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "path" },
-        }),
-      })
-    end,
+    opts_extend = { "sources.default" },
   },
 
   -- Auto pairs

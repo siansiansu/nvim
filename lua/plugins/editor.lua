@@ -1,22 +1,20 @@
 return {
-  -- File explorer
+  -- Fuzzy finder + file explorer
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
-    keys = {
-      { "<Leader>e", "<cmd>Neotree toggle<CR>", desc = "Toggle file explorer" },
+    "folke/snacks.nvim",
+    lazy = false,
+    priority = 1000,
+    ---@type snacks.Config
+    opts = {
+      explorer = {},
+      picker = {},
     },
-  },
-
-  -- Fuzzy finder
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
-      { "<Leader>ff", "<cmd>Telescope find_files<CR>", desc = "Find files" },
-      { "<Leader>fg", "<cmd>Telescope live_grep<CR>", desc = "Live grep" },
-      { "<Leader>fb", "<cmd>Telescope buffers<CR>", desc = "Buffers" },
-      { "<Leader>fh", "<cmd>Telescope help_tags<CR>", desc = "Help tags" },
+      { "<Leader>e", function() Snacks.explorer() end, desc = "Toggle file explorer" },
+      { "<Leader>ff", function() Snacks.picker.files() end, desc = "Find files" },
+      { "<Leader>fg", function() Snacks.picker.grep() end, desc = "Live grep" },
+      { "<Leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
+      { "<Leader>fh", function() Snacks.picker.help() end, desc = "Help tags" },
     },
   },
 
@@ -28,6 +26,8 @@ return {
       current_line_blame = true,
     },
     keys = {
+      { "]h", "<cmd>Gitsigns next_hunk<CR>", desc = "Next hunk" },
+      { "[h", "<cmd>Gitsigns prev_hunk<CR>", desc = "Prev hunk" },
       { "<Leader>gs", "<cmd>Gitsigns stage_hunk<CR>", desc = "Stage hunk" },
       { "<Leader>gr", "<cmd>Gitsigns reset_hunk<CR>", desc = "Reset hunk" },
       { "<Leader>gb", "<cmd>Gitsigns blame_line<CR>", desc = "Blame line" },
