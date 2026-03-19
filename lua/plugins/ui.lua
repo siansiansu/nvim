@@ -22,7 +22,7 @@ return {
 
   -- Statusline
   {
-    "nvim-lualine/lualine.nvim",
+    "nvim-mini/mini.statusline",
     lazy = false,
     opts = {},
   },
