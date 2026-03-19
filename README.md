@@ -1,6 +1,6 @@
 # Neovim Config
 
-Minimal config for Neovim >= 0.11. Leader key is `<Space>`.
+Minimal config for Neovim >= 0.11. Leader key is `,`.
 
 ## Plugins
 
