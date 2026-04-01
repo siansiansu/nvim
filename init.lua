@@ -28,6 +28,7 @@ opt.signcolumn = 'yes'                                -- Always show sign column
 opt.undofile = true                                   -- Persistent undo across sessions
 opt.swapfile = false                                  -- Don't use swapfile
 opt.writebackup = false                               -- Don't write backup files
+opt.clipboard = 'unnamedplus'                         -- Use system clipboard
 opt.updatetime = 100                                  -- Faster CursorHold events (LSP)
 opt.timeoutlen = 500                                  -- Time to wait for mapped sequence
 
