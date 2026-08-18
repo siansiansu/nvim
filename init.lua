@@ -51,7 +51,7 @@ opt.cursorline = true                                 -- Highlight cursor line
 opt.scrolloff = 2                                     -- Lines above/below cursor
 opt.sidescrolloff = 5                                 -- Columns left/right of cursor
 opt.pumheight = 15                                    -- Popup menu height
-opt.showmode = false                                  -- Don't show mode (lualine handles it)
+opt.showmode = false                                  -- Don't show mode (statusline handles it)
 opt.list = true                                       -- Show invisible characters
 opt.listchars = 'tab:» ,trail:·,extends:→,precedes:←'
 

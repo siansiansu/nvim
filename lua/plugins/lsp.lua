@@ -2,6 +2,10 @@ return {
   -- Mason (package manager for LSP/formatters/linters)
   {
     "mason-org/mason.nvim",
+    cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUpdate", "MasonLog" },
+    keys = {
+      { "<leader>m", "<cmd>Mason<CR>", desc = "Open Mason" },
+    },
     config = function()
       require("mason").setup()
       local ensure_installed = {
@@ -21,7 +25,6 @@ return {
           end
         end
       end)
-      vim.keymap.set("n", "<leader>m", "<cmd>Mason<CR>", { desc = "Open Mason" })
     end,
   },
 
