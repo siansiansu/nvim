@@ -19,9 +19,10 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = ","                                 -- Space as leader key
 vim.g.maplocalleader = "\\"                           -- Backslash as local leader
 
--- Yank/paste to system clipboard, but keep d/D/x/c on the unnamed register
--- so deleting text doesn't clobber what you copied from elsewhere.
-for _, lhs in ipairs({ "y", "Y", "p", "P" }) do
+-- Yank to system clipboard, but keep d/D/x/c/p on the unnamed register
+-- so deleting text doesn't clobber what you copied from elsewhere,
+-- and pasting after dd/D still pastes what you just deleted.
+for _, lhs in ipairs({ "y", "Y" }) do
   vim.keymap.set({ "n", "v" }, lhs, '"+' .. lhs, { noremap = true })
 end
 
