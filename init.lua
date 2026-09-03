@@ -8,13 +8,13 @@ vim.g.maplocalleader = "\\"
 -- Yank to the system clipboard, but leave d/D/x/c/p on the unnamed register so
 -- deleting doesn't clobber the clipboard and p after dd still pastes the delete.
 for _, lhs in ipairs({ "y", "Y" }) do
-  vim.keymap.set({ "n", "v" }, lhs, '"+' .. lhs, { noremap = true })
+	vim.keymap.set({ "n", "v" }, lhs, '"+' .. lhs, { noremap = true })
 end
 
 local opt = vim.opt
 
 opt.number = true
-opt.signcolumn = 'yes'
+opt.signcolumn = "yes"
 opt.undofile = true
 opt.swapfile = false
 opt.writebackup = false
@@ -24,65 +24,66 @@ opt.splitright = true
 opt.splitbelow = true
 
 opt.ignorecase = true
-opt.smartcase = true                                  -- unless the search has capitals
+opt.smartcase = true -- unless the search has capitals
 
 opt.expandtab = true
 opt.shiftwidth = 4
 opt.tabstop = 4
 
-opt.termguicolors = true                              -- default colorscheme only defines gui colors
-opt.colorcolumn = '80'
+opt.termguicolors = true -- default colorscheme only defines gui colors
 opt.cursorline = true
 opt.scrolloff = 2
 opt.sidescrolloff = 5
 opt.pumheight = 15
 opt.list = true
-opt.listchars = 'tab:» ,trail:·,nbsp:+'
+opt.listchars = "tab:» ,trail:·,nbsp:+"
 
-opt.foldmethod = 'expr'
-opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldlevelstart = 99
 
-opt.autocomplete = true                               -- popup as you type
-opt.complete = 'o^10,.^5,w^5,b^5'                     -- omnifunc (LSP), buffer, windows, buffers
-opt.completeopt = 'menuone,noselect,popup'
+opt.autocomplete = true -- popup as you type
+opt.complete = "o^10,.^5,w^5,b^5" -- omnifunc (LSP), buffer, windows, buffers
+opt.completeopt = "menuone,noselect,popup"
 
 opt.wildignorecase = true
-opt.wildignore = '.git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**'
+opt.wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**"
 
 -- Must precede vim.pack.add(). Parsers are compiled against the plugin, so they
 -- are rebuilt on update; on install setup() installs them instead, because the
 -- "install" kind fires before the plugin is loadable.
 vim.api.nvim_create_autocmd("PackChanged", {
-  group = vim.api.nvim_create_augroup("UserPackBuild", { clear = true }),
-  callback = function(ev)
-    if ev.data.spec.name ~= "nvim-treesitter" or ev.data.kind ~= "update" then
-      return
-    end
-    if not ev.data.active then
-      vim.cmd.packadd("nvim-treesitter")
-    end
-    require("nvim-treesitter").update()
-  end,
+	group = vim.api.nvim_create_augroup("UserPackBuild", { clear = true }),
+	callback = function(ev)
+		if ev.data.spec.name ~= "nvim-treesitter" or ev.data.kind ~= "update" then
+			return
+		end
+		if not ev.data.active then
+			vim.cmd.packadd("nvim-treesitter")
+		end
+		require("nvim-treesitter").update()
+	end,
 })
 
-local gh = function(repo) return "https://github.com/" .. repo end
+local gh = function(repo)
+	return "https://github.com/" .. repo
+end
 
 vim.pack.add({
-  -- gh("olimorris/onedarkpro.nvim"),
-  -- main branch: Neovim 0.12+ native API
-  { src = gh("nvim-treesitter/nvim-treesitter"), version = "main" },
-  { src = gh("nvim-treesitter/nvim-treesitter-textobjects"), version = "main" },
-  gh("nvim-mini/mini.pairs"),
-  gh("folke/flash.nvim"),
-  gh("folke/snacks.nvim"),
-  gh("lewis6991/gitsigns.nvim"),
-  gh("stevearc/conform.nvim"),
-  gh("mfussenegger/nvim-lint"),
+	-- gh("olimorris/onedarkpro.nvim"),
+	-- main branch: Neovim 0.12+ native API
+	{ src = gh("nvim-treesitter/nvim-treesitter"), version = "main" },
+	{ src = gh("nvim-treesitter/nvim-treesitter-textobjects"), version = "main" },
+	gh("nvim-mini/mini.pairs"),
+	gh("folke/flash.nvim"),
+	gh("folke/snacks.nvim"),
+	gh("lewis6991/gitsigns.nvim"),
+	gh("stevearc/conform.nvim"),
+	gh("mfussenegger/nvim-lint"),
 }, { confirm = false })
 
-vim.cmd.packadd("nvim.undotree")                      -- :Undotree
-vim.cmd.packadd("nvim.difftool")                      -- :DiffTool
+vim.cmd.packadd("nvim.undotree") -- :Undotree
+vim.cmd.packadd("nvim.difftool") -- :DiffTool
 
 -- Built-in colorschemes only define legacy groups, which leaves most treesitter
 -- captures at the Normal foreground; onedarkpro defines the @ groups directly.
@@ -93,25 +94,25 @@ require("plugins.editor").setup()
 require("plugins.lsp").setup()
 
 vim.keymap.set("n", "<Leader>tt", function()
-  local qf_open = vim.iter(vim.fn.getwininfo()):any(function(w)
-    return w.quickfix == 1
-  end)
-  if qf_open then
-    vim.cmd.cclose()
-  else
-    vim.diagnostic.setqflist()
-  end
+	local qf_open = vim.iter(vim.fn.getwininfo()):any(function(w)
+		return w.quickfix == 1
+	end)
+	if qf_open then
+		vim.cmd.cclose()
+	else
+		vim.diagnostic.setqflist()
+	end
 end, { desc = "Toggle diagnostics" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("UserLspAttach", { clear = true }),
-  callback = function(args)
-    local opts = { buffer = args.buf, silent = true }
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-    vim.keymap.set("n", "<Leader>d", vim.diagnostic.open_float, opts)
-    vim.lsp.completion.enable(true, args.data.client_id, args.buf, { autotrigger = true })
-  end,
+	group = vim.api.nvim_create_augroup("UserLspAttach", { clear = true }),
+	callback = function(args)
+		local opts = { buffer = args.buf, silent = true }
+		vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+		vim.keymap.set("n", "<Leader>d", vim.diagnostic.open_float, opts)
+		vim.lsp.completion.enable(true, args.data.client_id, args.buf, { autotrigger = true })
+	end,
 })
 
 vim.lsp.enable({ "lua_ls", "pyright", "ts_ls" })
