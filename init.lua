@@ -84,9 +84,10 @@ vim.pack.add({
 vim.cmd.packadd("nvim.undotree") -- :Undotree
 vim.cmd.packadd("nvim.difftool") -- :DiffTool
 
-require("plugins.coding").setup()
-require("plugins.editor").setup()
-require("plugins.lsp").setup()
+require("plugins.treesitter").setup()
+require("plugins.motion").setup()
+require("plugins.picker").setup()
+require("plugins.format").setup()
 
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspAttach", { clear = true }),

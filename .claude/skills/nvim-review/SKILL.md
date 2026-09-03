@@ -65,7 +65,7 @@ Check that all parsers passed to `require('nvim-treesitter').install()` are pres
 ```
 ls ~/.local/share/nvim/site/parser/
 ```
-Compare against the language list in `lua/plugins/coding.lua`.
+Compare against the language list in `lua/plugins/treesitter.lua`.
 
 ### Startup performance
 Measure startup time and identify slow plugins:

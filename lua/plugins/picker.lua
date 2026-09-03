@@ -1,3 +1,4 @@
+-- Finding files, buffers and text
 local M = {}
 
 function M.setup()

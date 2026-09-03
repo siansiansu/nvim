@@ -1,4 +1,4 @@
--- Language servers and formatters are installed separately; see README.
+-- Formatting on save; the formatters are installed separately, see README
 local M = {}
 
 function M.setup()
