@@ -1,4 +1,4 @@
--- Language servers and formatters are installed with Homebrew; see README.
+-- Language servers and formatters are installed separately; see README.
 local M = {}
 
 function M.setup()

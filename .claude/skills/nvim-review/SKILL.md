@@ -10,10 +10,10 @@ Perform a comprehensive review of this Neovim configuration. Run all checks belo
 
 ## Step 1: Gather context
 
-1. Read all config files under `lua/config/` and `lua/plugins/`
+1. Read `init.lua` and all config files under `lua/plugins/` and `lsp/`
 2. Check the installed Neovim version: `nvim --version | head -1`
 3. Check the latest available version: `brew info neovim 2>/dev/null | head -1`
-4. Read `lazy-lock.json` for installed plugin versions
+4. Read `nvim-pack-lock.json` for pinned plugin revisions
 
 ## Step 2: Check Neovim version
 
@@ -26,8 +26,8 @@ Check against the **installed Neovim version's** capabilities:
 
 - **Built-in features**: Are there plugins or manual configs that duplicate functionality now built into Neovim? (e.g., LSP keymaps, diagnostic navigation, comment toggling)
 - **API usage**: Are deprecated APIs being used? (e.g., `require('lspconfig')` framework in 0.11+, `vim.diagnostic.goto_prev/next` in 0.11+)
-- **Config ordering**: Are `vim.g.mapleader` and `vim.opt` settings placed before `lazy.setup()`?
-- **Lazy loading**: Are plugins using appropriate lazy-loading strategies (event, cmd, keys, ft)?
+- **Config ordering**: Are `vim.g.mapleader` and `vim.opt` settings placed before `vim.pack.add()`?
+- **Plugin loading**: Do plugins that need it load through `packadd` or a `PackChanged` hook rather than at startup?
 - **Augroups**: Do autocmds use named groups with `{ clear = true }` to prevent duplicates on reload?
 
 Reference Neovim's built-in help when needed:
@@ -39,7 +39,7 @@ nvim --headless -c 'help <topic>' -c 'w! /tmp/nvim-help.txt' -c 'qa!'
 
 - **Redundant plugins**: Plugins whose functionality is now built into Neovim core or fully covered by another plugin already in the config
 - **Redundant settings**: Options that match Neovim defaults or are unused by current plugins (check comments referencing old plugins)
-- **Orphaned lock entries**: Plugins in `lazy-lock.json` not referenced by any spec
+- **Orphaned lock entries**: Entries in `nvim-pack-lock.json`, or directories under `~/.local/share/nvim/site/pack/core/opt/`, not referenced by any `vim.pack.add()` spec
 - **Duplicate keymaps**: Custom keymaps that duplicate Neovim built-in defaults
 - **Overlapping plugins**: Multiple plugins providing the same functionality
 
@@ -60,18 +60,12 @@ Verify that external tools required by plugins are installed and available in `$
 
 For each tool, run `command -v <tool>` to check availability. Flag missing tools.
 
-### Mason tool status
-Check that all tools in Mason `ensure_installed` are actually installed:
-```
-ls ~/.local/share/nvim/mason/bin/
-```
-
 ### Treesitter parser status
-Check that all parsers in `ensure_installed` are present:
+Check that all parsers passed to `require('nvim-treesitter').install()` are present:
 ```
-ls ~/.local/share/nvim/lazy/nvim-treesitter/parser/
+ls ~/.local/share/nvim/site/parser/
 ```
-Compare against languages listed in treesitter `ensure_installed`.
+Compare against the language list in `lua/plugins/coding.lua`.
 
 ### Startup performance
 Measure startup time and identify slow plugins:

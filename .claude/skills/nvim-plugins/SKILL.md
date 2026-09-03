@@ -10,8 +10,8 @@ Review all installed plugins for freshness and suitability.
 
 ## Step 1: Gather plugin list
 
-1. Read all plugin specs under `lua/plugins/`
-2. Read `lazy-lock.json` for installed versions
+1. Read the `vim.pack.add()` specs in `init.lua` and the setup calls under `lua/plugins/`
+2. Read `nvim-pack-lock.json` for pinned revisions
 
 ## Step 2: Evaluate each plugin
 
@@ -25,8 +25,8 @@ For each plugin in the config, use web search to verify and evaluate:
 
 ## Step 3: Check for orphaned entries
 
-- Compare plugins in `lazy-lock.json` against plugin specs in `lua/plugins/`
-- Flag entries in lock file not referenced by any spec
+- Compare entries in `nvim-pack-lock.json` against the `vim.pack.add()` specs in `init.lua`
+- Flag lock entries and directories under `~/.local/share/nvim/site/pack/core/opt/` not referenced by any spec
 
 ## Output format
 

@@ -5,9 +5,8 @@ Minimal config for Neovim >= 0.12.
 ## New environment
 
 ```sh
-brew install neovim tree-sitter ripgrep fd \
-  lua-language-server pyright ruff stylua prettier \
-  typescript-language-server
+brew install neovim tree-sitter ripgrep fd lua-language-server ruff stylua
+npm install -g pyright typescript-language-server typescript prettier
 git clone git@github.com:siansiansu/nvim.git ~/.config/nvim
 ```
 
@@ -35,7 +34,8 @@ To roll back, restore `nvim-pack-lock.json` from git, then:
 :lua vim.pack.update(nil, { offline = true, target = "lockfile" })
 ```
 
-Neovim and the external tooling update with `brew upgrade`.
+Neovim and the Homebrew tools update with `brew upgrade`; the npm ones
+with `npm update -g`.
 
 ## Adding or removing a plugin
 
