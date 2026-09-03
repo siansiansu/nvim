@@ -1,4 +1,4 @@
--- lazy.nvim used to enable this; vim.pack does not. Must precede any require.
+-- Must precede any require.
 vim.loader.enable()
 
 -- Must precede vim.pack.add()
@@ -31,7 +31,7 @@ opt.splitright = true
 opt.splitbelow = true
 
 opt.ignorecase = true
-opt.smartcase = true -- unless the search has capitals
+opt.smartcase = true
 
 opt.expandtab = true
 opt.shiftwidth = 4
@@ -48,7 +48,7 @@ opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldlevelstart = 99
 
-opt.autocomplete = true -- popup as you type
+opt.autocomplete = true
 opt.complete = "o^10,.^5,w^5,b^5" -- omnifunc (LSP), buffer, windows, buffers
 opt.completeopt = "menuone,noselect,popup"
 
@@ -76,7 +76,6 @@ local gh = function(repo) return "https://github.com/" .. repo end
 vim.pack.add({
   -- main branch: Neovim 0.12+ native API
   { src = gh("nvim-treesitter/nvim-treesitter"), version = "main" },
-  gh("nvim-mini/mini.pairs"),
   gh("folke/flash.nvim"),
   gh("folke/snacks.nvim"),
   gh("lewis6991/gitsigns.nvim"),

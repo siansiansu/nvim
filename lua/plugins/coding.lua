@@ -33,8 +33,6 @@ end
 function M.setup()
   setup_treesitter()
 
-  require("mini.pairs").setup({})
-
   -- char mode maps f/F/t/T/;/, globally, which leaves the leader waiting out
   -- 'timeoutlen' on every use, and only adds clever-f repeat over the built-ins
   require("flash").setup({ modes = { char = { enabled = false } } })
