@@ -4,8 +4,9 @@ local M = {}
 local function setup_conform()
   require("conform").setup({
     formatters_by_ft = {
+      -- python is absent on purpose: the ruff language server formats, and
+      -- lsp_format = "fallback" below picks it up
       lua = { "stylua" },
-      python = { "ruff_format" },
       javascript = { "prettier" },
       typescript = { "prettier" },
     },
@@ -22,8 +23,9 @@ end
 
 local function setup_lint()
   local lint = require("lint")
+  -- python is absent on purpose: ruff is a language server, so its diagnostics
+  -- arrive natively and live, instead of on write through this bridge
   lint.linters_by_ft = {
-    python = { "ruff" },
     javascript = { "eslint_d" },
     typescript = { "eslint_d" },
   }
