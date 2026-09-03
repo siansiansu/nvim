@@ -78,7 +78,6 @@ vim.pack.add({
   { src = gh("nvim-treesitter/nvim-treesitter"), version = "main" },
   gh("folke/flash.nvim"),
   gh("folke/snacks.nvim"),
-  gh("lewis6991/gitsigns.nvim"),
   gh("stevearc/conform.nvim"),
 }, { confirm = false })
 
