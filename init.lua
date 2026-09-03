@@ -1,102 +1,116 @@
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
-end
-vim.opt.rtp:prepend(lazypath)
+-- lazy.nvim used to enable this; vim.pack does not. Must precede any require.
+vim.loader.enable()
 
--- Leader keys
-vim.g.mapleader = ","                                 -- Space as leader key
-vim.g.maplocalleader = "\\"                           -- Backslash as local leader
+-- Must precede vim.pack.add()
+vim.g.mapleader = ","
+vim.g.maplocalleader = "\\"
 
--- Yank to system clipboard, but keep d/D/x/c/p on the unnamed register
--- so deleting text doesn't clobber what you copied from elsewhere,
--- and pasting after dd/D still pastes what you just deleted.
+-- Yank to the system clipboard, but leave d/D/x/c/p on the unnamed register so
+-- deleting doesn't clobber the clipboard and p after dd still pastes the delete.
 for _, lhs in ipairs({ "y", "Y" }) do
   vim.keymap.set({ "n", "v" }, lhs, '"+' .. lhs, { noremap = true })
 end
 
--- General Settings
 local opt = vim.opt
 
--- Editor behavior
-opt.number = true                                     -- Show line number
-opt.signcolumn = 'yes'                                -- Always show sign column
-opt.undofile = true                                   -- Persistent undo across sessions
-opt.swapfile = false                                  -- Don't use swapfile
-opt.writebackup = false                               -- Don't write backup files
-opt.updatetime = 100                                  -- Faster CursorHold events (LSP)
-opt.timeoutlen = 500                                  -- Time to wait for mapped sequence
+opt.number = true
+opt.signcolumn = 'yes'
+opt.undofile = true
+opt.swapfile = false
+opt.writebackup = false
+opt.timeoutlen = 500                                  -- which-key reads this
 
--- Splits
-opt.splitright = true                                 -- Vertical split to the right
-opt.splitbelow = true                                 -- Horizontal split to the bottom
+opt.splitright = true
+opt.splitbelow = true
 
--- Search
-opt.ignorecase = true                                 -- Ignore case when searching
-opt.smartcase = true                                  -- Override ignorecase if search has capitals
+opt.ignorecase = true
+opt.smartcase = true                                  -- unless the search has capitals
 
--- Indentation
-opt.expandtab = true                                  -- Use spaces instead of tabs
-opt.shiftwidth = 4                                    -- Shift 4 spaces when tab
-opt.tabstop = 4                                       -- 1 tab == 4 spaces
+opt.expandtab = true
+opt.shiftwidth = 4
+opt.tabstop = 4
 
--- Display
-opt.colorcolumn = '80'                                -- Line length marker
-opt.cursorline = true                                 -- Highlight cursor line
-opt.scrolloff = 2                                     -- Lines above/below cursor
-opt.sidescrolloff = 5                                 -- Columns left/right of cursor
-opt.pumheight = 15                                    -- Popup menu height
-opt.showmode = false                                  -- Don't show mode (statusline handles it)
-opt.list = true                                       -- Show invisible characters
-opt.listchars = 'tab:» ,trail:·,extends:→,precedes:←'
+opt.colorcolumn = '80'
+opt.cursorline = true
+opt.scrolloff = 2
+opt.sidescrolloff = 5
+opt.pumheight = 15
+opt.list = true
+opt.listchars = 'tab:» ,trail:·,nbsp:+'
 
--- Folding (treesitter-based)
 opt.foldmethod = 'expr'
 opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-opt.foldlevelstart = 99                               -- Start with all folds open
+opt.foldlevelstart = 99
 
--- Wildmenu
+opt.autocomplete = true                               -- popup as you type
+opt.complete = 'o^10,.^5,w^5,b^5'                     -- omnifunc (LSP), buffer, windows, buffers
+opt.completeopt = 'menuone,noselect,popup'
+
 opt.wildignorecase = true
 opt.wildignore = '.git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**'
 
--- Setup lazy.nvim
-require("lazy").setup({
-  spec = {
-    { import = "plugins" },
-  },
-  defaults = {
-    version = "*",
-  },
-  install = { colorscheme = { "onedark", "habamax" } },
-  checker = { enabled = false },
+-- Must precede vim.pack.add(). Parsers are compiled against the plugin, so they
+-- are rebuilt on update; on install setup() installs them instead, because the
+-- "install" kind fires before the plugin is loadable.
+vim.api.nvim_create_autocmd("PackChanged", {
+  group = vim.api.nvim_create_augroup("UserPackBuild", { clear = true }),
+  callback = function(ev)
+    if ev.data.spec.name ~= "nvim-treesitter" or ev.data.kind ~= "update" then
+      return
+    end
+    if not ev.data.active then
+      vim.cmd.packadd("nvim-treesitter")
+    end
+    require("nvim-treesitter").update()
+  end,
 })
 
--- LSP keymaps
--- Nvim 0.11 defaults: K(hover), [d/]d(diag jump), grn(rename),
--- gra(code_action), grr(references), gri(implementation), gO(symbols)
+local gh = function(repo) return "https://github.com/" .. repo end
+
+vim.pack.add({
+  gh("nvim-mini/mini.icons"),
+  gh("olimorris/onedarkpro.nvim"),
+  -- main branch: Neovim 0.12+ native API
+  { src = gh("nvim-treesitter/nvim-treesitter"), version = "main" },
+  { src = gh("nvim-treesitter/nvim-treesitter-textobjects"), version = "main" },
+  gh("nvim-mini/mini.pairs"),
+  gh("folke/flash.nvim"),
+  gh("folke/snacks.nvim"),
+  gh("lewis6991/gitsigns.nvim"),
+  gh("folke/which-key.nvim"),
+  gh("mason-org/mason.nvim"),
+  gh("stevearc/conform.nvim"),
+  gh("mfussenegger/nvim-lint"),
+}, { confirm = false })
+
+vim.cmd.packadd("nvim.undotree")                      -- :Undotree
+vim.cmd.packadd("nvim.difftool")                      -- :DiffTool
+
+require("plugins.ui").setup()
+require("plugins.coding").setup()
+require("plugins.editor").setup()
+require("plugins.lsp").setup()
+
+vim.keymap.set("n", "<Leader>tt", function()
+  local qf_open = vim.iter(vim.fn.getwininfo()):any(function(w)
+    return w.quickfix == 1
+  end)
+  if qf_open then
+    vim.cmd.cclose()
+  else
+    vim.diagnostic.setqflist()
+  end
+end, { desc = "Toggle diagnostics" })
+
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("UserLspKeymaps", { clear = true }),
+  group = vim.api.nvim_create_augroup("UserLspAttach", { clear = true }),
   callback = function(args)
     local opts = { buffer = args.buf, silent = true }
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
     vim.keymap.set("n", "<Leader>d", vim.diagnostic.open_float, opts)
+    vim.lsp.completion.enable(true, args.data.client_id, args.buf, { autotrigger = true })
   end,
 })
 
--- LSP capabilities (blink.cmp) and enable servers
-vim.lsp.config("*", {
-  capabilities = require("blink.cmp").get_lsp_capabilities(),
-})
 vim.lsp.enable({ "lua_ls", "pyright", "ts_ls" })

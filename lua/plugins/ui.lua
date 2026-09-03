@@ -1,29 +1,11 @@
-return {
-  -- Icons (must load first)
-  {
-    "nvim-mini/mini.icons",
-    lazy = false,
-    priority = 1001,
-    config = function()
-      require("mini.icons").setup({})
-      MiniIcons.mock_nvim_web_devicons()
-    end,
-  },
+local M = {}
 
-  -- Colorscheme
-  {
-    "olimorris/onedarkpro.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme("onedark")
-    end,
-  },
+function M.setup()
+  -- snacks and which-key resolve icons through mini.icons directly, so no
+  -- nvim-web-devicons shim is needed. Statusline is Neovim's native default.
+  require("mini.icons").setup({})
 
-  -- Statusline
-  {
-    "nvim-mini/mini.statusline",
-    lazy = false,
-    opts = {},
-  },
-}
+  vim.cmd.colorscheme("onedark")
+end
+
+return M

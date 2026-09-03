@@ -1,19 +1,24 @@
 # Neovim Config
 
-Minimal config for Neovim >= 0.11. Leader key is `,`.
+Minimal config for Neovim >= 0.12. Leader key is `,`. Plugins are managed by the
+built-in `vim.pack`, with no lazy loading — 12 plugins, ~32ms startup.
 
 ## Plugins
 
 | Category | Plugins |
 |----------|---------|
-| Coding | treesitter, blink.cmp, mini.pairs, flash.nvim |
-| Editor | snacks.nvim (picker + explorer), gitsigns, trouble, which-key |
-| LSP | native lsp, mason, conform, nvim-lint |
-| UI | onedarkpro, mini.statusline, mini.icons |
+| Coding | treesitter (+textobjects), mini.pairs, flash.nvim |
+| Editor | snacks.nvim (picker + explorer), gitsigns, which-key |
+| LSP | mason, conform, nvim-lint |
+| UI | onedarkpro, mini.icons |
+
+Completion, statusline, diagnostics list, undo tree, and diff are all native.
 
 ## Custom Keymaps
 
-LSP keymaps use Neovim 0.11 built-in defaults (`K`, `grn`, `gra`, `grr`, `gri`, `gO`, `[d`/`]d`). Only non-default bindings are listed below.
+LSP keymaps use Neovim built-in defaults (`K`, `grn`, `gra`, `grr`, `gri`, `gO`, `[d`/`]d`).
+Completion is native: `<C-y>` accepts, `<C-e>` dismisses, `<C-x><C-f>` completes paths.
+Only non-default bindings are listed below.
 
 | Key | Action | Key | Action |
 |-----|--------|-----|--------|
@@ -25,5 +30,9 @@ LSP keymaps use Neovim 0.11 built-in defaults (`K`, `grn`, `gra`, `grr`, `gri`, 
 | `<Leader>gr` | Reset hunk | `<Leader>gb` / `<Leader>gd` | Blame / Diff |
 | `s` / `S` | Flash jump / treesitter | `af`/`if`/`ac`/`ic` | Function / Class textobj |
 | `]f`/`[f` | Next / Prev function | `]c`/`[c` | Next / Prev class |
-| `<Leader>tt` | Toggle diagnostics (Trouble) | `<Leader>m` | Open Mason |
-| `<leader>?` | Buffer keymaps (which-key) | | |
+| `<Leader>tt` | Toggle diagnostics | `<Leader>m` | Open Mason |
+| `<Leader>?` | Buffer keymaps | | |
+
+## Commands
+
+`:Undotree` (undo history), `:DiffTool` (file/directory diff) — both bundled with Neovim.
