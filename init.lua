@@ -82,7 +82,6 @@ vim.pack.add({
   gh("folke/snacks.nvim"),
   gh("lewis6991/gitsigns.nvim"),
   gh("stevearc/conform.nvim"),
-  gh("mfussenegger/nvim-lint"),
 }, { confirm = false })
 
 vim.cmd.packadd("nvim.undotree") -- :Undotree

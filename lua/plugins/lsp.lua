@@ -1,7 +1,7 @@
--- Language servers, formatters and linters are installed with Homebrew; see README.
+-- Language servers and formatters are installed with Homebrew; see README.
 local M = {}
 
-local function setup_conform()
+function M.setup()
   require("conform").setup({
     formatters_by_ft = {
       -- python is absent on purpose: the ruff language server formats, and
@@ -19,26 +19,6 @@ local function setup_conform()
     function() require("conform").format({ async = true }) end,
     { desc = "Format buffer" }
   )
-end
-
-local function setup_lint()
-  local lint = require("lint")
-  -- python is absent on purpose: ruff is a language server, so its diagnostics
-  -- arrive natively and live, instead of on write through this bridge
-  lint.linters_by_ft = {
-    javascript = { "eslint_d" },
-    typescript = { "eslint_d" },
-  }
-
-  vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
-    group = vim.api.nvim_create_augroup("UserLinting", { clear = true }),
-    callback = function() lint.try_lint() end,
-  })
-end
-
-function M.setup()
-  setup_conform()
-  setup_lint()
 end
 
 return M
