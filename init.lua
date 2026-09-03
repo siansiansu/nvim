@@ -77,7 +77,6 @@ vim.pack.add({
   -- main branch: Neovim 0.12+ native API
   { src = gh("nvim-treesitter/nvim-treesitter"), version = "main" },
   gh("folke/flash.nvim"),
-  gh("folke/snacks.nvim"),
   gh("stevearc/conform.nvim"),
 }, { confirm = false })
 
@@ -86,7 +85,6 @@ vim.cmd.packadd("nvim.difftool") -- :DiffTool
 
 require("plugins.treesitter").setup()
 require("plugins.motion").setup()
-require("plugins.picker").setup()
 require("plugins.format").setup()
 
 vim.api.nvim_create_autocmd("LspAttach", {

@@ -5,14 +5,14 @@ Minimal config for Neovim >= 0.12.
 ## New environment
 
 ```sh
-brew install neovim tree-sitter ripgrep fd lua-language-server ruff stylua
+brew install neovim tree-sitter lua-language-server ruff stylua
 npm install -g pyright typescript-language-server typescript prettier
 git clone git@github.com:siansiansu/nvim.git ~/.config/nvim
 ```
 
-`tree-sitter` and a C compiler (`xcode-select --install`) build the parsers;
-`ripgrep` and `fd` back the snacks picker. Diagnostics come from language
-servers only, so `ruff` runs as one (`ruff server`) alongside `pyright`;
+`tree-sitter` and a C compiler (`xcode-select --install`) build the parsers.
+Diagnostics come from language servers only, so `ruff` runs as one
+(`ruff server`) alongside `pyright`;
 `stylua` and `prettier` are the only tools conform shells out to.
 
 First launch installs the plugins pinned in `nvim-pack-lock.json` and compiles
