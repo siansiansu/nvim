@@ -38,7 +38,6 @@ opt.shiftwidth = 4
 opt.tabstop = 4
 
 opt.termguicolors = true -- default colorscheme only defines gui colors
--- opt.cursorline = true
 opt.scrolloff = 2
 opt.sidescrolloff = 5
 opt.pumheight = 15
