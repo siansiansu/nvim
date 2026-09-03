@@ -11,15 +11,36 @@ function M.setup()
   vim.keymap.set("n", "<Leader>fb", function() Snacks.picker.buffers() end, { desc = "Buffers" })
   vim.keymap.set("n", "<Leader>fh", function() Snacks.picker.help() end, { desc = "Help tags" })
 
+  -- Keys and the diff-mode fallthrough follow the plugin's README; buffer-local
+  -- via on_attach, so ]c keeps its built-in meaning outside a git repo
   require("gitsigns").setup({
     current_line_blame = true,
+    on_attach = function(bufnr)
+      local gitsigns = require("gitsigns")
+      local function map(lhs, rhs, desc) vim.keymap.set("n", lhs, rhs, { buffer = bufnr, desc = desc }) end
+
+      map("]c", function()
+        if vim.wo.diff then
+          vim.cmd.normal({ "]c", bang = true })
+        else
+          gitsigns.nav_hunk("next")
+        end
+      end, "Next hunk")
+
+      map("[c", function()
+        if vim.wo.diff then
+          vim.cmd.normal({ "[c", bang = true })
+        else
+          gitsigns.nav_hunk("prev")
+        end
+      end, "Prev hunk")
+
+      map("<Leader>hs", gitsigns.stage_hunk, "Stage hunk")
+      map("<Leader>hr", gitsigns.reset_hunk, "Reset hunk")
+      map("<Leader>hb", gitsigns.blame_line, "Blame line")
+      map("<Leader>hd", gitsigns.diffthis, "Diff this")
+    end,
   })
-  vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<CR>", { desc = "Next hunk" })
-  vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<CR>", { desc = "Prev hunk" })
-  vim.keymap.set("n", "<Leader>gs", "<cmd>Gitsigns stage_hunk<CR>", { desc = "Stage hunk" })
-  vim.keymap.set("n", "<Leader>gr", "<cmd>Gitsigns reset_hunk<CR>", { desc = "Reset hunk" })
-  vim.keymap.set("n", "<Leader>gb", "<cmd>Gitsigns blame_line<CR>", { desc = "Blame line" })
-  vim.keymap.set("n", "<Leader>gd", "<cmd>Gitsigns diffthis<CR>", { desc = "Diff this" })
 end
 
 return M

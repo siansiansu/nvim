@@ -7,8 +7,15 @@ vim.g.maplocalleader = "\\"
 
 -- Yank to the system clipboard, but leave d/D/x/c/p on the unnamed register so
 -- deleting doesn't clobber the clipboard and p after dd still pastes the delete.
+-- Only prefix when no register was given, or "ay expands to "a"+y, where the
+-- later register wins and the yank lands in + instead of a.
 for _, lhs in ipairs({ "y", "Y" }) do
-	vim.keymap.set({ "n", "v" }, lhs, '"+' .. lhs, { noremap = true })
+  vim.keymap.set(
+    { "n", "v" },
+    lhs,
+    function() return vim.v.register == '"' and '"+' .. lhs or lhs end,
+    { expr = true, noremap = true }
+  )
 end
 
 local opt = vim.opt
@@ -31,7 +38,7 @@ opt.shiftwidth = 4
 opt.tabstop = 4
 
 opt.termguicolors = true -- default colorscheme only defines gui colors
-opt.cursorline = true
+-- opt.cursorline = true
 opt.scrolloff = 2
 opt.sidescrolloff = 5
 opt.pumheight = 15
@@ -53,33 +60,30 @@ opt.wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,*
 -- are rebuilt on update; on install setup() installs them instead, because the
 -- "install" kind fires before the plugin is loadable.
 vim.api.nvim_create_autocmd("PackChanged", {
-	group = vim.api.nvim_create_augroup("UserPackBuild", { clear = true }),
-	callback = function(ev)
-		if ev.data.spec.name ~= "nvim-treesitter" or ev.data.kind ~= "update" then
-			return
-		end
-		if not ev.data.active then
-			vim.cmd.packadd("nvim-treesitter")
-		end
-		require("nvim-treesitter").update()
-	end,
+  group = vim.api.nvim_create_augroup("UserPackBuild", { clear = true }),
+  callback = function(ev)
+    if ev.data.spec.name ~= "nvim-treesitter" or ev.data.kind ~= "update" then
+      return
+    end
+    if not ev.data.active then
+      vim.cmd.packadd("nvim-treesitter")
+    end
+    require("nvim-treesitter").update()
+  end,
 })
 
-local gh = function(repo)
-	return "https://github.com/" .. repo
-end
+local gh = function(repo) return "https://github.com/" .. repo end
 
 vim.pack.add({
-	-- gh("olimorris/onedarkpro.nvim"),
-	-- main branch: Neovim 0.12+ native API
-	{ src = gh("nvim-treesitter/nvim-treesitter"), version = "main" },
-	{ src = gh("nvim-treesitter/nvim-treesitter-textobjects"), version = "main" },
-	gh("nvim-mini/mini.pairs"),
-	gh("folke/flash.nvim"),
-	gh("folke/snacks.nvim"),
-	gh("lewis6991/gitsigns.nvim"),
-	gh("stevearc/conform.nvim"),
-	gh("mfussenegger/nvim-lint"),
+  -- gh("olimorris/onedarkpro.nvim"),
+  -- main branch: Neovim 0.12+ native API
+  { src = gh("nvim-treesitter/nvim-treesitter"), version = "main" },
+  gh("nvim-mini/mini.pairs"),
+  gh("folke/flash.nvim"),
+  gh("folke/snacks.nvim"),
+  gh("lewis6991/gitsigns.nvim"),
+  gh("stevearc/conform.nvim"),
+  gh("mfussenegger/nvim-lint"),
 }, { confirm = false })
 
 vim.cmd.packadd("nvim.undotree") -- :Undotree
@@ -93,26 +97,16 @@ require("plugins.coding").setup()
 require("plugins.editor").setup()
 require("plugins.lsp").setup()
 
-vim.keymap.set("n", "<Leader>tt", function()
-	local qf_open = vim.iter(vim.fn.getwininfo()):any(function(w)
-		return w.quickfix == 1
-	end)
-	if qf_open then
-		vim.cmd.cclose()
-	else
-		vim.diagnostic.setqflist()
-	end
-end, { desc = "Toggle diagnostics" })
-
 vim.api.nvim_create_autocmd("LspAttach", {
-	group = vim.api.nvim_create_augroup("UserLspAttach", { clear = true }),
-	callback = function(args)
-		local opts = { buffer = args.buf, silent = true }
-		vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-		vim.keymap.set("n", "<Leader>d", vim.diagnostic.open_float, opts)
-		vim.lsp.completion.enable(true, args.data.client_id, args.buf, { autotrigger = true })
-	end,
+  group = vim.api.nvim_create_augroup("UserLspAttach", { clear = true }),
+  callback = function(args)
+    -- No keymaps here: on attach Nvim sets 'tagfunc', so <C-]> jumps to the
+    -- definition, and gr* / gO / <C-w>d cover the rest by default.
+    -- No autotrigger: 'autocomplete' already polls the o source above, which
+    -- is 'omnifunc', which the LSP client sets on attach. enable() is still
+    -- needed for the CompleteDone side effects (snippets, import edits).
+    vim.lsp.completion.enable(true, args.data.client_id, args.buf)
+  end,
 })
 
 vim.lsp.enable({ "lua_ls", "pyright", "ts_ls" })

@@ -25,11 +25,6 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
-    "nvim-treesitter-textobjects": {
-      "rev": "5c7b0263797dfd1bd6202f2b219f3b53a80b2187",
-      "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-      "version": "'main'"
-    },
     "onedarkpro.nvim": {
       "rev": "ef009ae60769935a4eced9b3d545ae6013d3d271",
       "src": "https://github.com/olimorris/onedarkpro.nvim"

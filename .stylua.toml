@@ -1,0 +1,6 @@
+# Only what differs from stylua's defaults: 2-space indent, as in Nvim's own Lua
+# runtime (stylua would otherwise use tabs, which fights 'expandtab'), and
+# one-line callbacks kept on one line, as the keymap and autocmd specs are written.
+indent_type = "Spaces"
+indent_width = 2
+collapse_simple_statement = "FunctionOnly"

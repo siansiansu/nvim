@@ -12,9 +12,12 @@ local function setup_conform()
     format_on_save = { timeout_ms = 500, lsp_format = "fallback" },
   })
 
-  vim.keymap.set("n", "<Leader>cf", function()
-    require("conform").format({ async = true })
-  end, { desc = "Format buffer" })
+  vim.keymap.set(
+    "n",
+    "<Leader>cf",
+    function() require("conform").format({ async = true }) end,
+    { desc = "Format buffer" }
+  )
 end
 
 local function setup_lint()
