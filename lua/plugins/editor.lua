@@ -20,11 +20,6 @@ function M.setup()
   vim.keymap.set("n", "<Leader>gr", "<cmd>Gitsigns reset_hunk<CR>", { desc = "Reset hunk" })
   vim.keymap.set("n", "<Leader>gb", "<cmd>Gitsigns blame_line<CR>", { desc = "Blame line" })
   vim.keymap.set("n", "<Leader>gd", "<cmd>Gitsigns diffthis<CR>", { desc = "Diff this" })
-
-  require("which-key").setup({})
-  vim.keymap.set("n", "<Leader>?", function()
-    require("which-key").show({ global = false })
-  end, { desc = "Buffer Keymaps" })
 end
 
 return M

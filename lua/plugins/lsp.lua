@@ -1,40 +1,5 @@
+-- Language servers, formatters and linters are installed with Homebrew; see README.
 local M = {}
-
-local ensure_installed = {
-  "lua-language-server",
-  "pyright",
-  "typescript-language-server",
-  "stylua",
-  "prettier",
-  "ruff",                                             -- nvim-lint and conform's ruff_format
-  "eslint_d",
-}
-
-local function setup_mason()
-  require("mason").setup()
-  vim.keymap.set("n", "<Leader>m", "<cmd>Mason<CR>", { desc = "Open Mason" })
-
-  -- Startup path: only hit the network when something is actually missing
-  local registry = require("mason-registry")
-  local installed = {}
-  for _, name in ipairs(registry.get_installed_package_names()) do
-    installed[name] = true
-  end
-
-  local missing = vim.tbl_filter(function(name) return not installed[name] end, ensure_installed)
-  if #missing == 0 then
-    return
-  end
-
-  registry.refresh(function()
-    for _, name in ipairs(missing) do
-      local ok, pkg = pcall(registry.get_package, name)
-      if ok and not pkg:is_installed() then
-        pkg:install()
-      end
-    end
-  end)
-end
 
 local function setup_conform()
   require("conform").setup({
@@ -67,7 +32,6 @@ local function setup_lint()
 end
 
 function M.setup()
-  setup_mason()
   setup_conform()
   setup_lint()
 end

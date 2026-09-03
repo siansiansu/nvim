@@ -18,7 +18,7 @@ opt.signcolumn = 'yes'
 opt.undofile = true
 opt.swapfile = false
 opt.writebackup = false
-opt.timeoutlen = 500                                  -- which-key reads this
+opt.timeoutlen = 500
 
 opt.splitright = true
 opt.splitbelow = true
@@ -30,6 +30,7 @@ opt.expandtab = true
 opt.shiftwidth = 4
 opt.tabstop = 4
 
+opt.termguicolors = true                              -- default colorscheme only defines gui colors
 opt.colorcolumn = '80'
 opt.cursorline = true
 opt.scrolloff = 2
@@ -68,7 +69,6 @@ vim.api.nvim_create_autocmd("PackChanged", {
 local gh = function(repo) return "https://github.com/" .. repo end
 
 vim.pack.add({
-  gh("nvim-mini/mini.icons"),
   gh("olimorris/onedarkpro.nvim"),
   -- main branch: Neovim 0.12+ native API
   { src = gh("nvim-treesitter/nvim-treesitter"), version = "main" },
@@ -77,8 +77,6 @@ vim.pack.add({
   gh("folke/flash.nvim"),
   gh("folke/snacks.nvim"),
   gh("lewis6991/gitsigns.nvim"),
-  gh("folke/which-key.nvim"),
-  gh("mason-org/mason.nvim"),
   gh("stevearc/conform.nvim"),
   gh("mfussenegger/nvim-lint"),
 }, { confirm = false })
@@ -86,7 +84,10 @@ vim.pack.add({
 vim.cmd.packadd("nvim.undotree")                      -- :Undotree
 vim.cmd.packadd("nvim.difftool")                      -- :DiffTool
 
-require("plugins.ui").setup()
+-- Built-in colorschemes only define legacy groups, which leaves most treesitter
+-- captures at the Normal foreground; onedarkpro defines the @ groups directly.
+vim.cmd.colorscheme("onedark")
+
 require("plugins.coding").setup()
 require("plugins.editor").setup()
 require("plugins.lsp").setup()

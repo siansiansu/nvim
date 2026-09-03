@@ -1,18 +1,30 @@
 # Neovim Config
 
 Minimal config for Neovim >= 0.12. Leader key is `,`. Plugins are managed by the
-built-in `vim.pack`, with no lazy loading — 12 plugins, ~32ms startup.
+built-in `vim.pack`, with no lazy loading — 9 plugins, ~25ms startup.
 
 ## Plugins
 
 | Category | Plugins |
 |----------|---------|
 | Coding | treesitter (+textobjects), mini.pairs, flash.nvim |
-| Editor | snacks.nvim (picker + explorer), gitsigns, which-key |
-| LSP | mason, conform, nvim-lint |
-| UI | onedarkpro, mini.icons |
+| Editor | snacks.nvim (picker + explorer), gitsigns |
+| LSP | conform, nvim-lint |
+| UI | onedarkpro |
 
 Completion, statusline, diagnostics list, undo tree, and diff are all native.
+The colorscheme is not: built-in schemes only define legacy highlight groups,
+which leaves most treesitter captures at the Normal foreground.
+
+## Setup
+
+Plugins install themselves on first launch. Language servers, formatters and
+linters come from Homebrew rather than mason:
+
+```sh
+brew install lua-language-server pyright ruff stylua prettier \
+  typescript-language-server eslint_d
+```
 
 ## Custom Keymaps
 
@@ -30,8 +42,7 @@ Only non-default bindings are listed below.
 | `<Leader>gr` | Reset hunk | `<Leader>gb` / `<Leader>gd` | Blame / Diff |
 | `s` / `S` | Flash jump / treesitter | `af`/`if`/`ac`/`ic` | Function / Class textobj |
 | `]f`/`[f` | Next / Prev function | `]c`/`[c` | Next / Prev class |
-| `<Leader>tt` | Toggle diagnostics | `<Leader>m` | Open Mason |
-| `<Leader>?` | Buffer keymaps | | |
+| `<Leader>tt` | Toggle diagnostics | | |
 
 ## Commands
 
