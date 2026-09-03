@@ -12,8 +12,8 @@ git clone git@github.com:siansiansu/nvim.git ~/.config/nvim
 
 `tree-sitter` and a C compiler (`xcode-select --install`) build the parsers.
 Diagnostics come from language servers only, so `ruff` runs as one
-(`ruff server`) alongside `pyright`;
-`stylua` and `prettier` are the only tools conform shells out to.
+(`ruff server`) alongside `pyright`; `stylua` and `prettier` are the only
+tools conform shells out to.
 
 First launch installs the plugins pinned in `nvim-pack-lock.json` and compiles
 the parsers. Then `:restart`, and `:checkhealth`.
