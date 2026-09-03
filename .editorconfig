@@ -1,0 +1,7 @@
+root = true
+
+# 'shiftwidth' is 4 globally; Nvim reads this natively so Lua buffers match what
+# stylua produces while typing, not only after a save.
+[*.lua]
+indent_style = space
+indent_size = 2

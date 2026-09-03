@@ -25,10 +25,6 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
-    "onedarkpro.nvim": {
-      "rev": "ef009ae60769935a4eced9b3d545ae6013d3d271",
-      "src": "https://github.com/olimorris/onedarkpro.nvim"
-    },
     "snacks.nvim": {
       "rev": "882c996cf28183f4d63640de0b4c02ec886d01f2",
       "src": "https://github.com/folke/snacks.nvim"

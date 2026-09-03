@@ -75,7 +75,6 @@ vim.api.nvim_create_autocmd("PackChanged", {
 local gh = function(repo) return "https://github.com/" .. repo end
 
 vim.pack.add({
-  -- gh("olimorris/onedarkpro.nvim"),
   -- main branch: Neovim 0.12+ native API
   { src = gh("nvim-treesitter/nvim-treesitter"), version = "main" },
   gh("nvim-mini/mini.pairs"),
@@ -88,10 +87,6 @@ vim.pack.add({
 
 vim.cmd.packadd("nvim.undotree") -- :Undotree
 vim.cmd.packadd("nvim.difftool") -- :DiffTool
-
--- Built-in colorschemes only define legacy groups, which leaves most treesitter
--- captures at the Normal foreground; onedarkpro defines the @ groups directly.
--- vim.cmd.colorscheme("onedark")
 
 require("plugins.coding").setup()
 require("plugins.editor").setup()
