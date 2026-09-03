@@ -11,35 +11,10 @@ function M.setup()
   vim.keymap.set("n", "<Leader>fb", function() Snacks.picker.buffers() end, { desc = "Buffers" })
   vim.keymap.set("n", "<Leader>fh", function() Snacks.picker.help() end, { desc = "Help tags" })
 
-  -- Keys and the diff-mode fallthrough follow the plugin's README; buffer-local
-  -- via on_attach, so ]c keeps its built-in meaning outside a git repo
+  -- No keymaps: the signs and inline blame are passive, and the actions are
+  -- reachable through :Gitsigns, which completes its subcommands
   require("gitsigns").setup({
     current_line_blame = true,
-    on_attach = function(bufnr)
-      local gitsigns = require("gitsigns")
-      local function map(lhs, rhs, desc) vim.keymap.set("n", lhs, rhs, { buffer = bufnr, desc = desc }) end
-
-      map("]c", function()
-        if vim.wo.diff then
-          vim.cmd.normal({ "]c", bang = true })
-        else
-          gitsigns.nav_hunk("next")
-        end
-      end, "Next hunk")
-
-      map("[c", function()
-        if vim.wo.diff then
-          vim.cmd.normal({ "[c", bang = true })
-        else
-          gitsigns.nav_hunk("prev")
-        end
-      end, "Prev hunk")
-
-      map("<Leader>hs", gitsigns.stage_hunk, "Stage hunk")
-      map("<Leader>hr", gitsigns.reset_hunk, "Reset hunk")
-      map("<Leader>hb", gitsigns.blame_line, "Blame line")
-      map("<Leader>hd", gitsigns.diffthis, "Diff this")
-    end,
   })
 end
 
