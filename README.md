@@ -5,15 +5,18 @@ Minimal config for Neovim >= 0.12.
 ## New environment
 
 ```sh
-brew install neovim tree-sitter lua-language-server ruff stylua fd ripgrep
+brew install neovim tree-sitter lua-language-server ruff stylua fd ripgrep gitleaks
 npm install -g pyright typescript-language-server typescript prettier
 git clone git@github.com:siansiansu/nvim.git ~/.config/nvim
+git -C ~/.config/nvim config core.hooksPath .githooks
 ```
 
 `tree-sitter` and a C compiler (`xcode-select --install`) build the parsers.
 Diagnostics come from language servers only, so `ruff` runs as one
 (`ruff server`) alongside `pyright`; `stylua` and `prettier` are the only
 tools conform shells out to. `:find` lists files with `fd`, `:grep` runs `rg`.
+The pre-commit hook runs `gitleaks` on staged changes and refuses a commit
+that holds a secret.
 
 First launch installs the plugins pinned in `nvim-pack-lock.json` and compiles
 the parsers. Then `:restart`, and `:checkhealth`.

@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash # unlike the implicit default, adds -o pipefail
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0 # gitleaks scans every commit, not just the tip
+          persist-credentials: false
+      - name: Install gitleaks and stylua
+        working-directory: ${{ runner.temp }}
+        run: |
+          curl -sSfL -o gitleaks.tar.gz https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz
+          curl -sSfL -o stylua.zip https://github.com/JohnnyMorganz/StyLua/releases/download/v2.5.2/stylua-linux-x86_64.zip
+          sha256sum -c <<'EOF'
+          551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb  gitleaks.tar.gz
+          bcb0d855e91f102f28a370e850f8566b3b44b79e6274d806ea5246837c0fd5ab  stylua.zip
+          EOF
+          tar -xzf gitleaks.tar.gz gitleaks
+          unzip -q stylua.zip
+          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
+      - run: gitleaks git --redact --verbose --no-banner
+      - run: stylua --check .
+
+  startup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      XDG_CONFIG_HOME: ${{ github.workspace }} # config lives in ./nvim
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: nvim
+          persist-credentials: false
+      # stable, unpinned on purpose: brew upgrade tracks it too
+      - name: Install Neovim stable and tree-sitter CLI
+        working-directory: ${{ runner.temp }}
+        run: |
+          curl -sSfL https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz | tar -xz
+          curl -sSfL -o tree-sitter.gz https://github.com/tree-sitter/tree-sitter/releases/download/v0.27.0/tree-sitter-linux-x64.gz
+          echo "20a1f39ec1c45f2211492dcb8881c802b643b554bb196869a29ac3778277fa77  tree-sitter.gz" | sha256sum -c
+          gunzip tree-sitter.gz
+          chmod +x tree-sitter
+          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
+          echo "$RUNNER_TEMP/nvim-linux-x86_64/bin" >> "$GITHUB_PATH"
+      # The first start installs the plugins from nvim-pack-lock.json and waits
+      # for the parsers; the second loads them as an existing setup would.
+      # Errors in -c commands and scheduled callbacks leave the exit code at 0,
+      # so any error line on the output fails the job too.
+      - name: Start twice
+        run: |
+          {
+            nvim --headless "+lua assert(require('nvim-treesitter').install(require('plugins.treesitter').parsers):wait(300000), 'parser install failed')" +qa
+            nvim --headless +qa
+          } 2>&1 | tee start.log
+          ! grep -E '^Error|E[0-9]+: ' start.log
