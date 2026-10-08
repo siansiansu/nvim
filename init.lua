@@ -55,6 +55,39 @@ opt.completeopt = "menuone,noselect,popup"
 opt.wildignorecase = true
 opt.wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**"
 
+-- Command-line autocompletion, see :h cmdline-autocompletion
+opt.wildmode = "noselect:lastused,full"
+local cmdline = vim.api.nvim_create_augroup("UserCmdline", { clear = true })
+vim.api.nvim_create_autocmd("CmdlineChanged", {
+  group = cmdline,
+  pattern = { ":", "/", "?" },
+  callback = function() vim.fn.wildtrigger() end,
+})
+-- <Up>/<Down> walk history, not the popup menu
+for _, key in ipairs({ "<Up>", "<Down>" }) do
+  vim.keymap.set("c", key, function() return vim.fn.wildmenumode() == 1 and "<C-e>" .. key or key end, { expr = true })
+end
+
+-- :find fuzzy-matches fd's file list (respects .gitignore), listed once per
+-- command line, see :h fuzzy-file-picker
+local files = {}
+vim.api.nvim_create_autocmd("CmdlineEnter", {
+  group = cmdline,
+  pattern = ":",
+  callback = function() files = {} end,
+})
+function _G.UserFindFiles(arg)
+  if #files == 0 then
+    files = vim.fn.systemlist({ "fd", "--type", "f", "--hidden", "--exclude", ".git" })
+  end
+  return arg == "" and files or vim.fn.matchfuzzy(files, arg)
+end
+opt.findfunc = "v:lua.UserFindFiles"
+vim.keymap.set("n", "<Leader>ff", ":find ", { desc = "Find file" })
+
+-- The default adds -uu, which searches .gitignore'd files such as node_modules
+opt.grepprg = "rg --vimgrep --smart-case"
+
 -- Must precede vim.pack.add(). Parsers are compiled against the plugin, so they
 -- are rebuilt on update; on install setup() installs them instead, because the
 -- "install" kind fires before the plugin is loadable.
