@@ -79,6 +79,7 @@ vim.pack.add({
   gh("folke/flash.nvim"),
   gh("stevearc/conform.nvim"),
   gh("windwp/nvim-autopairs"),
+  gh("kylechui/nvim-surround"), -- ys/ds/cs, no setup needed
 }, { confirm = false })
 
 vim.cmd.packadd("nvim.undotree") -- :Undotree
