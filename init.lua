@@ -78,6 +78,7 @@ vim.pack.add({
   { src = gh("nvim-treesitter/nvim-treesitter"), version = "main" },
   gh("folke/flash.nvim"),
   gh("stevearc/conform.nvim"),
+  gh("windwp/nvim-autopairs"),
 }, { confirm = false })
 
 vim.cmd.packadd("nvim.undotree") -- :Undotree
@@ -86,6 +87,7 @@ vim.cmd.packadd("nvim.difftool") -- :DiffTool
 require("plugins.treesitter").setup()
 require("plugins.motion").setup()
 require("plugins.format").setup()
+require("plugins.pairs").setup()
 
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspAttach", { clear = true }),
